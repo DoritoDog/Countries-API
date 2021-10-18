@@ -7,13 +7,10 @@ use App\Models\Country;
 
 class CountriesController extends Controller
 {
-    public function index(Request $request, string $countryName)
+    public function index(Request $request)
     {
-        $countries = Country::where('code', 'ARB')
-               ->orderBy('name')
-               ->take(10)
-               ->get();
+        $countries = Country::getByFilters($request->name);
 
-        dd($countries);
+        return \json_encode($countries);
     }
 }
